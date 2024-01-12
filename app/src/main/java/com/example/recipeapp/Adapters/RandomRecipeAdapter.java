@@ -1,6 +1,7 @@
 package com.example.recipeapp.Adapters;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate(R.layout.list_random_recipe, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
         holder.textview_title.setText(list.get(position).title);
