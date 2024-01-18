@@ -1,6 +1,7 @@
 package com.example.recipeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
-    //    Create a new Object of Spinner
+//    Create a new Object of Spinner
     Spinner spinner;
     List<String> tags = new ArrayList<>();
+    //    Initialize SearchView - create a new SearchView object. Use androidx.appcompat.widget
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,25 @@ public class MainActivity extends AppCompatActivity {
 //        Initialize dialog, manager - pass context this
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading...");
+
+//        Initialize searchView
+        searchView = findViewById(R.id.searchView_home);
+//        Create setOnQueryTextListener for searchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
 //        Initialize spinner inside onCreate method
         spinner = findViewById(R.id.spinner_tags);
