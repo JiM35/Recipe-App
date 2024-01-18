@@ -1,0 +1,6 @@
+![Screenshot_2024-01-18-09-27-25-731_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/5e138792-3216-4be9-aa62-3df237edc074)
+![Screenshot_2024-01-18-09-27-19-540_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/8e445849-4c3e-4411-ad17-38b2bb685c78)
+![Screenshot_2024-01-18-09-27-10-711_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/a6d9f6bd-0f3d-470d-9ac1-1fc3a9a6a363)
+![Screenshot_2024-01-18-09-27-06-079_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/927a3920-78d7-4a3a-8dce-252bba890b74)
+![Screenshot_2024-01-18-09-26-57-672_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/34a0148a-c69b-4d7f-8909-8146ecac80d3)
+![Screenshot_2024-01-18-09-26-44-596_com example recipeapp](https://github.com/JiM35/Recipe-App/assets/48186310/5811553f-3cb5-4d8d-9d73-896ee68b3ec7)
