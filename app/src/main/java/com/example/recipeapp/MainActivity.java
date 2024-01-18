@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -15,6 +17,9 @@ import com.example.recipeapp.Adapters.RandomRecipeAdapter;
 import com.example.recipeapp.Listeners.RandomRecipeResponseListener;
 import com.example.recipeapp.Models.RandomRecipeApiResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 // Add internet permission to AndroidManifest.xml - <uses-permission android:name="android.permission.INTERNET"/>
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
-//    Create a new Object of Spinner
+    //    Create a new Object of Spinner
     Spinner spinner;
+    List<String> tags = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +45,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.tags, R.layout.spinner_text);
 
         manager = new RequestManager(this);
-        manager.getRandomRecipes(randomRecipeResponseListener);  // Pass the listener to getRandomRecipes parameter
+
+//        This will show an error because we are calling the API once the user selects any item for the spinner so we don't need to call these at the onCreate method
+//        manager.getRandomRecipes(randomRecipeResponseListener); and dialog.show();
+//        manager.getRandomRecipes(randomRecipeResponseListener);  // Pass the listener to getRandomRecipes parameter
+
 //        Set the drop down resources layout for our spinner
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
 //        Attach the arrayAdapter to the spinner
         spinner.setAdapter(arrayAdapter);
 
+//        Attach this spinnerSelectedListeners to our spinner item
+        spinner.setOnItemSelectedListener(spinnerSelectedListeners);
+
 //        Show dialog
-        dialog.show();
+//        dialog.show();
     }
 
-//    Create listener
-    private final RandomRecipeResponseListener randomRecipeResponseListener=new RandomRecipeResponseListener() {
-//        When we get our response on didFetch we’ll show that on the recyclerview and if we get an error we’ll show a toast message with the error message
+    //    Create listener
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        //        When we get our response on didFetch we’ll show that on the recyclerview and if we get an error we’ll show a toast message with the error message
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
 //            Initialize recyclerview
@@ -69,6 +82,27 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void didError(String message) {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+//        Create a separate listener for the spinners OnItemSelectedListener
+    private final AdapterView.OnItemSelectedListener spinnerSelectedListeners = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//            We'll add items to these tags whenever user selects any items from the spinner
+//            Clear the list
+            tags.clear();
+//            We'll add the item that user selected
+            tags.add(adapterView.getSelectedItem().toString());
+//            Call getRandomRecipes. Pass listener
+            manager.getRandomRecipes(randomRecipeResponseListener, tags);
+//            Enable our progress dialog
+            dialog.show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
         }
     };
 }
